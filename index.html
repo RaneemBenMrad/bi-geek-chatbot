@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BI-GEEK - Business Intelligence Academy</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #6A1B9A; /* Darker vibrant purple */
+      --secondary-color: #1E2A44; /* Dark navy for text */
+      --accent-color: #EDE7F6; /* Light purple for backgrounds */
+      --dark-color: #0A1428; /* Deep navy for footer */
+      --light-color: #FFFFFF; /* White for body */
+      --success-color: #28A745; /* Green for success states */
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--light-color);
+      color: var(--secondary-color);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* Navbar */
+    .navbar {
+      background: var(--light-color);
+      padding: 1rem 0;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      transition: background 0.3s ease;
+    }
+
+    .navbar.scrolled {
+      background: var(--primary-color);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .navbar.scrolled .navbar-brand,
+    .navbar.scrolled .nav-link {
+      color: var(--light-color);
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.9rem;
+      color: var(--primary-color);
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-link {
+      color: var(--secondary-color);
+      font-weight: 500;
+      font-size: 1.1rem;
+      padding: 0.5rem 1.5rem;
+      transition: color 0.3s ease;
+    }
+
+    .nav-link:hover {
+      color: var(--primary-color);
+    }
+
+    /* Hero Section */
+    .hero-section {
+      background: linear-gradient(45deg, var(--primary-color) 0%, #F06292 100%);
+      color: var(--light-color);
+      padding: 10rem 0 4rem;
+      position: relative;
+      text-align: center;
+    }
+
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://images.unsplash.com/photo-1614850715649-1d0106292a9e') center/cover no-repeat;
+      opacity: 0.2;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-section h1 {
+      font-size: 3.8rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-section p {
+      font-size: 1.3rem;
+      max-width: 700px;
+      margin: 0 auto 2rem;
+    }
+
+    .hero-course-card {
+      background: var(--light-color);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin: 1rem;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+      transition: transform 0.4s ease;
+    }
+
+    .hero-course-card:hover {
+      transform: translateY(-10px);
+    }
+
+    /* Buttons */
+    .btn-primary {
+      background: var(--primary-color);
+      border: none;
+      border-radius: 10px;
+      padding: 1rem 2.5rem;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: var(--light-color);
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background: #B0004D;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Services Section */
+    .services-section {
+      background: var(--accent-color);
+      padding: 6rem 0;
+      position: relative;
+      transform: skewY(-3deg);
+    }
+
+    .services-section .container {
+      transform: skewY(3deg);
+    }
+
+    .service-card {
+      background: var(--light-color);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .service-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .service-card img {
+      height: 160px;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .service-card:hover img {
+      transform: scale(1.05);
+    }
+
+    /* Testimonial Slider */
+    .testimonial-slider {
+      padding: 5rem 0;
+    }
+
+    .testimonial-card {
+      background: var(--light-color);
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .testimonial-card .quote {
+      font-size: 1.2rem;
+      color: var(--secondary-color);
+      margin-bottom: 1rem;
+    }
+
+    /* Impact Section */
+    .impact-section {
+      background: var(--primary-color);
+      color: var(--light-color);
+      padding: 6rem 0;
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .feature-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    /* CTA Banner */
+    .cta-banner {
+      position: fixed;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--primary-color);
+      color: var(--light-color);
+      padding: 1.5rem 3rem;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      z-index: 999;
+      display: none;
+    }
+
+    /* Chatbot */
+    .chatbot-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--primary-color);
+      color: var(--light-color);
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+      z-index: 1000;
+      transition: transform 0.3s ease;
+    }
+
+    .chatbot-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .chatbot-container {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      width: 350px;
+      max-height: 500px;
+      background: var(--light-color);
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 1000;
+    }
+
+    .chatbot-header {
+      background: var(--primary-color);
+      color: var(--light-color);
+      padding: 1rem;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .chatbot-body {
+      padding: 1.5rem;
+      flex-grow: 1;
+      overflow-y: auto;
+      background: var(--accent-color);
+    }
+
+    .chatbot-message {
+      margin-bottom: 1rem;
+      padding: 0.8rem 1.2rem;
+      border-radius: 12px;
+      max-width: 80%;
+    }
+
+    .chatbot-message.bot {
+      background: var(--primary-color);
+      color: var(--light-color);
+      margin-left: auto;
+    }
+
+    .chatbot-message.user {
+      background: #E5E7EB;
+      color: var(--secondary-color);
+      margin-right: auto;
+    }
+
+    .chatbot-input {
+      padding: 1rem;
+      border-top: 1px solid #E5E7EB;
+      display: flex;
+    }
+
+    .chatbot-input input {
+      flex-grow: 1;
+      border: none;
+      border-radius: 12px;
+      padding: 0.7rem 1.2rem;
+      margin-right: 0.5rem;
+      outline: none;
+      background: var(--accent-color);
+    }
+
+    .chatbot-input button {
+      background: var(--primary-color);
+      color: var(--light-color);
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .chatbot-input button:hover {
+      transform: scale(1.1);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark-color);
+      color: #A1A1AA;
+      padding: 4rem 0;
+    }
+
+    footer h5 {
+      color: var(--light-color);
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      font-size: 1.2rem;
+    }
+
+    footer a {
+      color: #A1A1AA;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.3s ease;
+    }
+
+    footer a:hover {
+      color: var(--primary-color);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .hero-section h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero-section p {
+        font-size: 1.1rem;
+      }
+
+      .chatbot-container {
+        width: 300px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .hero-section {
+        padding: 6rem 0 3rem;
+      }
+
+      .hero-section h1 {
+        font-size: 2rem;
+      }
+
+      .hero-section p {
+        font-size: 1rem;
+      }
+
+      .btn-primary {
+        padding: 0.8rem 2rem;
+        font-size: 0.95rem;
+      }
+
+      .stat-number {
+        font-size: 2.2rem;
+      }
+
+      .chatbot-container {
+        width: 90%;
+        right: 5%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand" href="#"><i class="fas fa-laptop-code me-2"></i>BI-GEEK</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-center">
+          <li class="nav-item"><a class="nav-link" href="#">Courses</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Certifications</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Bootcamps</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+          <li class="nav-item">
+            <a class="btn btn-primary ms-3" href="#">Join Now</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero-section">
+    <div class="container hero-content">
+      <h1 class="animate-hero-title">Unleash Your Data Potential</h1>
+      <p class="animate-hero-text">Transform your career with BI-GEEK’s expert-led Business Intelligence training.</p>
+      <div class="row g-3 mt-4">
+        <div class="col-md-4">
+          <div class="hero-course-card text-center">
+            <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485" class="img-fluid rounded-3 mb-3" alt="Power BI" style="height: 120px;">
+            <h5 class="fw-bold">Power BI Masterclass</h5>
+            <p class="text-muted small">Learn advanced data visualization techniques.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="hero-course-card text-center">
+            <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f" class="img-fluid rounded-3 mb-3" alt="Data Engineering" style="height: 120px;">
+            <h5 class="fw-bold">Data Engineering</h5>
+            <p class="text-muted small">Master Big Data and cloud platforms.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="hero-course-card text-center">
+            <img src="https://images.unsplash.com/photo-1516321318423-ffd3db47e5f5" class="img-fluid rounded-3 mb-3" alt="Certifications" style="height: 120px;">
+            <h5 class="fw-bold">Microsoft Certifications</h5>
+            <p class="text-muted small">Earn industry-recognized credentials.</p>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-4">
+        <a href="#" class="btn btn-primary">Discover All Courses</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="services-section">
+    <div class="container">
+      <h2 class="text-center mb-5 fw-bold">Why Choose BI-GEEK?</h2>
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="service-card p-4 d-flex align-items-center">
+            <div class="feature-icon me-3"><i class="fas fa-chart-line"></i></div>
+            <div>
+              <h5 class="fw-bold">Hands-On Learning</h5>
+              <p class="text-muted">Practical projects to build real-world skills.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="service-card p-4 d-flex align-items-center">
+            <div class="feature-icon me-3"><i class="fas fa-certificate"></i></div>
+            <div>
+              <h5 class="fw-bold">Certified Instructors</h5>
+              <p class="text-muted">Learn from industry experts.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="service-card p-4 d-flex align-items-center">
+            <div class="feature-icon me-3"><i class="fas fa-rocket"></i></div>
+            <div>
+              <h5 class="fw-bold">Career Support</h5>
+              <p class="text-muted">Job placement and resume guidance.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="service-card p-4 d-flex align-items-center">
+            <div class="feature-icon me-3"><i class="fas fa-globe"></i></div>
+            <div>
+              <h5 class="fw-bold">Flexible Learning</h5>
+              <p class="text-muted">Online and in-person options.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial Slider -->
+  <section class="testimonial-slider">
+    <div class="container">
+      <h2 class="text-center mb-5 fw-bold">Hear From Our Graduates</h2>
+      <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="testimonial-card text-center">
+              <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Ahmed" class="rounded-circle mb-3" style="width: 80px; height: 80px;">
+              <p class="quote">"BI-GEEK turned my passion for data into a thriving career!"</p>
+              <h5 class="fw-bold">Ahmed, 2024</h5>
+              <p class="text-muted small">Data Analyst</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="testimonial-card text-center">
+              <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah" class="rounded-circle mb-3" style="width: 80px; height: 80px;">
+              <p class="quote">"The bootcamp was intense but worth every second!"</p>
+              <h5 class="fw-bold">Sarah, 2023</h5>
+              <p class="text-muted small">Data Engineer</p>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Impact Section -->
+  <section class="impact-section">
+    <div class="container">
+      <h2 class="text-center mb-5 fw-bold">Our Impact</h2>
+      <div class="row g-4 text-center">
+        <div class="col-md-3">
+          <div class="feature-icon"><i class="fas fa-users"></i></div>
+          <div class="stat-number">1200</div>
+          <p>Students Trained</p>
+        </div>
+        <div class="col-md-3">
+          <div class="feature-icon"><i class="fas fa-certificate"></i></div>
+          <div class="stat-number">800</div>
+          <p>Certifications Awarded</p>
+        </div>
+        <div class="col-md-3">
+          <div class="feature-icon"><i class="fas fa-briefcase"></i></div>
+          <div class="stat-number">90</div>
+          <p>Employability Rate (%)</p>
+        </div>
+        <div class="col-md-3">
+          <div class="feature-icon"><i class="fas fa-star"></i></div>
+          <div class="stat-number">4.8/5</div>
+          <p>Satisfaction</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- News Section -->
+  <section class="py-5">
+    <div class="container">
+      <h2 class="text-center mb-5 fw-bold">Latest Updates</h2>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="service-card">
+            <img src="https://images.unsplash.com/photo-1531497865144-0464ef8fb9a9" class="card-img-top" alt="New Bootcamp">
+            <div class="card-body">
+              <span class="badge">New</span>
+              <h5 class="fw-bold mt-3">2025 Bootcamp Launch</h5>
+              <p class="text-muted">Join our advanced Data Engineering program.</p>
+              <a href="#" class="btn btn-primary btn-sm">Explore Now</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="service-card">
+            <img src="https://images.unsplash.com/photo-1507208773393-40d9fc670acf" class="card-img-top" alt="Webinar">
+            <div class="card-body">
+              <span class="badge bg-success">Event</span>
+              <h5 class="fw-bold mt-3">Power BI Webinar</h5>
+              <p class="text-muted">Free session with industry experts.</p>
+              <a href="#" class="btn btn-primary btn-sm">Register</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="service-card">
+            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c" class="card-img-top" alt="Success Story">
+            <div class="card-body">
+              <span class="badge">Story</span>
+              <h5 class="fw-bold mt-3">Student Spotlight</h5>
+              <p class="text-muted">Ahmed’s journey to BI mastery.</p>
+              <a href="#" class="btn btn-primary btn-sm">Read More</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <div class="cta-banner">
+    <h5 class="mb-2 fw-bold">Ready to Transform Your Career?</h5>
+    <a href="#" class="btn btn-light btn-sm">Enroll Today</a>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row gy-4">
+        <div class="col-md-4">
+          <h5>BI-GEEK</h5>
+          <p>Your gateway to mastering Business Intelligence and Big Data.</p>
+        </div>
+        <div class="col-md-2">
+          <h5>Courses</h5>
+          <ul class="list-unstyled">
+            <li><a href="#">Power BI</a></li>
+            <li><a href="#">Python</a></li>
+            <li><a href="#">Big Data</a></li>
+          </ul>
+        </div>
+        <div class="col-md-2">
+          <h5>Certifications</h5>
+          <ul class="list-unstyled">
+            <li><a href="#">PL-300</a></li>
+            <li><a href="#">DP-900</a></li>
+            <li><a href="#">DP-203</a></li>
+          </ul>
+        </div>
+        <div class="col-md-2">
+          <h5>Contact</h5>
+          <ul class="list-unstyled">
+            <li><a href="#">contact@bi-geek.net</a></li>
+            <li><a href="#">+216 58 611 283</a></li>
+            <li><a href="#">Lac 1, Tunis</a></li>
+          </ul>
+        </div>
+        <div class="col-md-2">
+          <h5>Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="#">Enroll</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Blog</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="text-center pt-5">
+        <small>© 2025 BI-GEEK. All rights reserved.</small>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Chatbot Button and Container -->
+  <div class="chatbot-btn" id="chatbotToggle">
+    <i class="fas fa-comment-medical"></i>
+  </div>
+  <div class="chatbot-container" id="chatbotContainer">
+    <div class="chatbot-header">
+      <span>BI-GEEK Assistant</span>
+      <i class="fas fa-times" id="chatbotClose"></i>
+    </div>
+    <div class="chatbot-body" id="chatbotBody">
+      <div class="chatbot-message bot">Welcome! Ask me about BI-GEEK’s courses or certifications.</div>
+    </div>
+    <div class="chatbot-input">
+      <input type="text" id="chatbotInput" placeholder="Type your question...">
+      <button id="chatbotSend"><i class="fas fa-paper-plane"></i></button>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+      const navbar = document.querySelector('.navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // CTA banner scroll effect
+    window.addEventListener('scroll', () => {
+      const ctaBanner = document.querySelector('.cta-banner');
+      if (window.scrollY > 500) {
+        ctaBanner.style.display = 'block';
+      } else {
+        ctaBanner.style.display = 'none';
+      }
+    });
+
+    // Chatbot functionality
+    const chatbotToggle = document.getElementById('chatbotToggle');
+    const chatbotContainer = document.getElementById('chatbotContainer');
+    const chatbotClose = document.getElementById('chatbotClose');
+    const chatbotSend = document.getElementById('chatbotSend');
+    const chatbotInput = document.getElementById('chatbotInput');
+    const chatbotBody = document.getElementById('chatbotBody');
+    let isSending = false;
+
+    // Ensure chatbot container is initially hidden
+    chatbotContainer.style.display = 'none';
+
+    chatbotToggle.addEventListener('click', () => {
+      console.log('Chatbot toggle clicked, current display:', chatbotContainer.style.display);
+      const isHidden = chatbotContainer.style.display === 'none';
+      chatbotContainer.style.display = isHidden ? 'flex' : 'none';
+      console.log('Chatbot container display set to:', chatbotContainer.style.display);
+    });
+
+    chatbotClose.addEventListener('click', () => {
+      console.log('Chatbot close clicked');
+      chatbotContainer.style.display = 'none';
+      console.log('Chatbot container hidden');
+    });
+
+    async function sendMessage() {
+      if (isSending) {
+        console.log('Send blocked: isSending is true');
+        return;
+      }
+      const message = chatbotInput.value.trim();
+      if (!message) {
+        console.log('Send blocked: empty message');
+        return;
+      }
+
+      console.log('Sending message:', message);
+      isSending = true;
+      chatbotSend.disabled = true;
+      chatbotInput.disabled = true;
+
+      // Append user message
+      const userMessage = document.createElement('div');
+      userMessage.className = 'chatbot-message user';
+      userMessage.textContent = message;
+      chatbotBody.appendChild(userMessage);
+      console.log('User message appended:', userMessage.textContent, 'Child count:', chatbotBody.childElementCount);
+      chatbotInput.value = '';
+      chatbotBody.scrollTop = chatbotBody.scrollHeight;
+
+      // Append loading message
+      const loadingMessage = document.createElement('div');
+      loadingMessage.className = 'chatbot-message bot';
+      loadingMessage.id = 'loading-message';
+      loadingMessage.textContent = 'Loading...';
+      chatbotBody.appendChild(loadingMessage);
+      console.log('Loading message appended, Child count:', chatbotBody.childElementCount);
+      chatbotBody.scrollTop = chatbotBody.scrollHeight;
+
+      try {
+        console.log('Fetching from backend...');
+        const response = await fetch('http://127.0.0.1:5001/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message })
+        });
+        console.log('Fetch response status:', response.status);
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+        const data = await response.json();
+        console.log('Backend response:', data);
+
+        // Remove loading message
+        const loadingElement = document.getElementById('loading-message');
+        if (loadingElement) {
+          loadingElement.remove();
+          console.log('Loading message removed, Child count:', chatbotBody.childElementCount);
+        } else {
+          console.log('Loading message not found');
+        }
+
+        // Append bot response
+        const botMessage = document.createElement('div');
+        botMessage.className = 'chatbot-message bot';
+        botMessage.textContent = data.response || 'Sorry, I couldn’t process your request.';
+        chatbotBody.appendChild(botMessage);
+        console.log('Bot message appended:', botMessage.textContent, 'Child count:', chatbotBody.childElementCount);
+        chatbotBody.scrollTop = chatbotBody.scrollHeight;
+      } catch (error) {
+        // Remove loading message
+        const loadingElement = document.getElementById('loading-message');
+        if (loadingElement) {
+          loadingElement.remove();
+          console.log('Loading message removed (error case), Child count:', chatbotBody.childElementCount);
+        } else {
+          console.log('Loading message not found (error case)');
+        }
+
+        // Append error message
+        const botMessage = document.createElement('div');
+        botMessage.className = 'chatbot-message bot';
+        botMessage.textContent = 'Server connection error. Please try again.';
+        chatbotBody.appendChild(botMessage);
+        console.log('Error message appended:', botMessage.textContent, 'Child count:', chatbotBody.childElementCount);
+        chatbotBody.scrollTop = chatbotBody.scrollHeight;
+        console.error('Chatbot error:', error);
+      } finally {
+        isSending = false;
+        chatbotSend.disabled = false;
+        chatbotInput.disabled = false;
+        chatbotInput.focus();
+        console.log('Send complete, input enabled, Child count:', chatbotBody.childElementCount);
+      }
+    }
+
+    chatbotSend.addEventListener('click', () => {
+      console.log('Send button clicked');
+      sendMessage();
+    });
+
+    chatbotInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter' && !isSending) {
+        console.log('Enter key pressed');
+        sendMessage();
+      }
+    });
+
+    // Monitor chatbotBody for unexpected changes
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        console.log('Mutation observed in chatbotBody:', mutation);
+        if (mutation.removedNodes.length) {
+          console.log('Nodes removed from chatbotBody:', mutation.removedNodes);
+        }
+      });
+    });
+    observer.observe(chatbotBody, { childList: true, subtree: true });
+  </script>
+</body>
+</html>
